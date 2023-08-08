@@ -4,16 +4,14 @@ const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', '
 
 // Build an 'original' deck of 'card' objects used to create shuffled decks
 const originalDeck = buildOriginalDeck();
-renderDeckInContainer(originalDeck, document.getElementById('original-deck-container'));
 
 /*----- app's state (variables) -----*/
 let shuffledDeck;
 
 /*----- cached element references -----*/
-const shuffledContainer = document.getElementById('shuffled-deck-container');
 
 /*----- event listeners -----*/
-document.querySelector('button').addEventListener('click', renderNewShuffledDeck);
+document.getElementById('hit').addEventListener('click', playerHit);
 
 /*----- functions -----*/
 function getNewShuffledDeck() {
@@ -32,7 +30,6 @@ function getNewShuffledDeck() {
 function renderNewShuffledDeck() {
   // Create a copy of the originalDeck (leave originalDeck untouched!)
   shuffledDeck = getNewShuffledDeck();
-  renderDeckInContainer(shuffledDeck, shuffledContainer);
 }
 
 function renderDeckInContainer(deck, container) {
@@ -66,3 +63,6 @@ function buildOriginalDeck() {
 }
 
 renderNewShuffledDeck();
+
+
+console.log(dealersFirstCard)
