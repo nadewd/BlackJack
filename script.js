@@ -9,7 +9,8 @@ const originalDeck = buildOriginalDeck();
 let shuffledDeck;
 let playerScoreCount;
 let dealerScoreCount;
-let hitCounter;
+let playerAceCount = 0;
+let dealerAceCount = 0;
 const playerScoreMsg = document.getElementById('player-score');
 const dealerScoreMsg = document.getElementById('dealer-score');
 
@@ -65,34 +66,55 @@ const dealerSecondDiv = document.getElementById('dealer-cards').appendChild(docu
 const dealerSecondCard = shuffledDeck.pop()
 dealerSecondDiv.setAttribute('class', `card ${dealerSecondCard.face}`);
 
+if (dealerFirstCard.value === 11) {
+  dealerAceCount += 1;
+} 
+if (dealerSecondCard.value === 11) {
+  dealerAceCount += 1;
+} 
+if (dealerAceCount > 1) {
+  dealerSecondCard.value = 1;
+}
+
 
 function dealPlayerCards() {
 
   const playerFirstDiv = document.getElementById('player-cards').appendChild(document.createElement("div"));
-  const playerFirstCard = shuffledDeck.pop()
+  const playerFirstCard = shuffledDeck.pop();
   playerFirstDiv.setAttribute('class', `card ${playerFirstCard.face}`);
 
   const playerSecondDiv = document.getElementById('player-cards').appendChild(document.createElement("div"));
-  const playerSecondCard = shuffledDeck.pop()
+  const playerSecondCard = shuffledDeck.pop();
   playerSecondDiv.setAttribute('class', `card ${playerSecondCard.face}`);
 
-  playerScoreCount = playerFirstCard.value + playerSecondCard.value;
-  dealerScoreCount = dealerSecondCard.value;
+  if (playerFirstCard.value === 11) {
+    playerAceCount += 1;
+  } 
+  if (playerSecondCard.value === 11) {
+    playerAceCount += 1;
+  } if (playerAceCount > 1) {
+    playerSecondCard.value = 1;
+  }
 
+  playerScoreCount = playerFirstCard.value + playerSecondCard.value;
   
   playerScoreMsg.innerHTML = playerScoreCount;
-  getWinner();
 }
 
 dealPlayerCards();
-
-
 
 
 function playerHit() {
  const playerNewDiv = document.getElementById('player-cards').appendChild(document.createElement("div"));
  const playerNewCard = shuffledDeck.pop();
  playerNewDiv.setAttribute('class', `card ${playerNewCard.face}`);
+
+ if (playerNewCard.value === 11) {
+  playerAceCount += 1;
+ } 
+ if (playerNewCard.value === 11 && playerAceCount > 1) {
+  playerNewCard.value = 1;
+ }
 
  playerScoreCount += playerNewCard.value;
  playerScoreMsg.innerHTML = playerScoreCount;
@@ -102,7 +124,16 @@ function playerHit() {
 function dealerFlip() {
   dealerFirstDiv.setAttribute('class', `card ${dealerFirstCard.face}`);
 
-  dealerScoreCount += dealerFirstCard.value;
+  if (dealerFirstCard.value === 11) {
+    dealerAceCount += 1;
+  } 
+  if (dealerSecondCard.value === 11) {
+    dealerAceCount += 1;
+  } if (dealerAceCount > 1) {
+    dealerSecondCard.value = 1;
+  }
+
+  dealerScoreCount = dealerFirstCard.value + dealerSecondCard.value;
   dealerScoreMsg.innerHTML = dealerScoreCount;
 
   getWinner();
@@ -114,6 +145,13 @@ function dealerHit() {
     const dealerNewDiv = document.getElementById('dealer-cards').appendChild(document.createElement("div"));
     const dealerNewCard = shuffledDeck.pop();
     dealerNewDiv.setAttribute('class', `card ${dealerNewCard.face}`);
+
+    if (dealerNewCard.value === 11) {
+      dealerAceCount += 1;
+     } 
+     if (dealerNewCard.value === 11 && dealerAceCount > 1) {
+      dealerNewCard.value = 1;
+     }
  
     dealerScoreCount += dealerNewCard.value;
     dealerScoreMsg.innerHTML = dealerScoreCount;
@@ -143,4 +181,4 @@ function getWinner() {
   } else {
     return false;
   }
-}g
+}
