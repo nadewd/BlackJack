@@ -7,11 +7,13 @@ const originalDeck = buildOriginalDeck();
 
 /*----- app's state (variables) -----*/
 let shuffledDeck;
+let playersScoreCount;
+let dealersScoreCount;
 
 /*----- cached element references -----*/
 
 /*----- event listeners -----*/
-document.getElementById('hit').addEventListener('click', playerHit);
+/* document.getElementById('hit').addEventListener('click', playerHit);
 
 /*----- functions -----*/
 function getNewShuffledDeck() {
@@ -65,4 +67,26 @@ function buildOriginalDeck() {
 renderNewShuffledDeck();
 
 
-console.log(dealersFirstCard)
+function dealCards() {
+  const dealersFirstDiv = document.getElementById('dealers-cards').appendChild(document.createElement("div"));
+  const dealersFirstCard = shuffledDeck.pop()
+  dealersFirstDiv.setAttribute('class', 'card back-red');
+  
+  const dealersSecondDiv = document.getElementById('dealers-cards').appendChild(document.createElement("div"));
+  const dealersSecondCard = shuffledDeck.pop()
+  dealersSecondDiv.setAttribute('class', `card ${dealersSecondCard.face}`);
+
+  const playersFirstDiv = document.getElementById('players-cards').appendChild(document.createElement("div"));
+  const playersFirstCard = shuffledDeck.pop()
+  playersFirstDiv.setAttribute('class', `card ${playersFirstCard.face}`);
+
+  const playersSecondDiv = document.getElementById('players-cards').appendChild(document.createElement("div"));
+  const playersSecondCard = shuffledDeck.pop()
+  playersSecondDiv.setAttribute('class', `card ${playersSecondCard.face}`);
+
+  playersScoreCount = playersFirstCard.value + playersSecondCard.value;
+  dealersScoreCount = dealersSecondCard.value;
+
+}
+
+dealCards();
