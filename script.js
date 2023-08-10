@@ -7,13 +7,17 @@ const originalDeck = buildOriginalDeck();
 
 /*----- app's state (variables) -----*/
 let shuffledDeck;
-let playersScoreCount;
-let dealersScoreCount;
+let playerScoreCount;
+let dealerScoreCount;
+let hitCounter;
+const playerScoreMsg = document.getElementById('player-score');
+const dealerScoreMsg = document.getElementById('dealer-score');
 
 /*----- cached element references -----*/
 
 /*----- event listeners -----*/
-/* document.getElementById('hit').addEventListener('click', playerHit);
+document.getElementById('hit').addEventListener('click', playerHit);
+document.getElementById('stay').addEventListener('click', playerStay);
 
 /*----- functions -----*/
 function getNewShuffledDeck() {
@@ -34,19 +38,6 @@ function renderNewShuffledDeck() {
   shuffledDeck = getNewShuffledDeck();
 }
 
-function renderDeckInContainer(deck, container) {
-  container.innerHTML = '';
-  // Let's build the cards as a string of HTML
-  let cardsHtml = '';
-  deck.forEach(function(card) {
-    cardsHtml += `<div class="card ${card.face}"></div>`;
-  });
-  // Or, use reduce to 'reduce' the array into a single thing - in this case a string of HTML markup 
-  // const cardsHtml = deck.reduce(function(html, card) {
-  //   return html + `<div class="card ${card.face}"></div>`;
-  // }, '');
-  container.innerHTML = cardsHtml;
-}
 
 function buildOriginalDeck() {
   const deck = [];
@@ -66,27 +57,66 @@ function buildOriginalDeck() {
 
 renderNewShuffledDeck();
 
+const dealerFirstDiv = document.getElementById('dealer-cards').appendChild(document.createElement("div"));
+const dealerFirstCard = shuffledDeck.pop();
+dealerFirstDiv.setAttribute('class', 'card back-red');
 
-function dealCards() {
-  const dealersFirstDiv = document.getElementById('dealers-cards').appendChild(document.createElement("div"));
-  const dealersFirstCard = shuffledDeck.pop()
-  dealersFirstDiv.setAttribute('class', 'card back-red');
+const dealerSecondDiv = document.getElementById('dealer-cards').appendChild(document.createElement("div"));
+const dealerSecondCard = shuffledDeck.pop()
+dealerSecondDiv.setAttribute('class', `card ${dealerSecondCard.face}`);
+
+
+function dealPlayerCards() {
+
+  const playerFirstDiv = document.getElementById('player-cards').appendChild(document.createElement("div"));
+  const playerFirstCard = shuffledDeck.pop()
+  playerFirstDiv.setAttribute('class', `card ${playerFirstCard.face}`);
+
+  const playerSecondDiv = document.getElementById('player-cards').appendChild(document.createElement("div"));
+  const playerSecondCard = shuffledDeck.pop()
+  playerSecondDiv.setAttribute('class', `card ${playerSecondCard.face}`);
+
+  playerScoreCount = playerFirstCard.value + playerSecondCard.value;
+  dealerScoreCount = dealerSecondCard.value;
+
   
-  const dealersSecondDiv = document.getElementById('dealers-cards').appendChild(document.createElement("div"));
-  const dealersSecondCard = shuffledDeck.pop()
-  dealersSecondDiv.setAttribute('class', `card ${dealersSecondCard.face}`);
-
-  const playersFirstDiv = document.getElementById('players-cards').appendChild(document.createElement("div"));
-  const playersFirstCard = shuffledDeck.pop()
-  playersFirstDiv.setAttribute('class', `card ${playersFirstCard.face}`);
-
-  const playersSecondDiv = document.getElementById('players-cards').appendChild(document.createElement("div"));
-  const playersSecondCard = shuffledDeck.pop()
-  playersSecondDiv.setAttribute('class', `card ${playersSecondCard.face}`);
-
-  playersScoreCount = playersFirstCard.value + playersSecondCard.value;
-  dealersScoreCount = dealersSecondCard.value;
+  playerScoreMsg.innerHTML = playerScoreCount;
 
 }
 
-dealCards();
+dealPlayerCards();
+
+
+function playerHit() {
+ const playerNewDiv = document.getElementById('player-cards').appendChild(document.createElement("div"));
+ const playerNewCard = shuffledDeck.pop();
+ playerNewDiv.setAttribute('class', `card ${playerNewCard.face}`);
+
+ playerScoreCount += playerNewCard.value;
+ playerScoreMsg.innerHTML = playerScoreCount;
+}
+
+function playerStay() {
+  dealerFirstDiv.setAttribute('class', `card ${dealerFirstCard.face}`);
+
+  dealerScoreCount += dealerFirstCard.value;
+  dealerScoreMsg.innerHTML = dealerScoreCount;
+
+  if (dealerScoreCount === 21) {
+    window.alert('Dealer Wins')
+  } else if (dealerScoreCount > playerScoreCount && dealerScoreCount <= 21) {
+    window.alert('Dealer Wins')
+  } else {
+    setTimeout(dealerHit, 3000);
+  }
+}
+
+function dealerHit() {
+ const dealerNewDiv = document.getElementById('dealer-cards').appendChild(document.createElement("div"));
+ const dealerNewCard = shuffledDeck.pop();
+ dealerNewDiv.setAttribute('class', `card ${dealerNewCard.face}`);
+
+ dealerScoreCount += dealerNewCard.value;
+ dealerScoreMsg.innerHTML = dealerScoreCount;
+
+}
