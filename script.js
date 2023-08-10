@@ -17,7 +17,7 @@ const dealerScoreMsg = document.getElementById('dealer-score');
 
 /*----- event listeners -----*/
 document.getElementById('hit').addEventListener('click', playerHit);
-document.getElementById('stay').addEventListener('click', playerStay);
+document.getElementById('stay').addEventListener('click', dealerFlip);
 
 /*----- functions -----*/
 function getNewShuffledDeck() {
@@ -81,10 +81,12 @@ function dealPlayerCards() {
 
   
   playerScoreMsg.innerHTML = playerScoreCount;
-
+  getWinner();
 }
 
 dealPlayerCards();
+
+
 
 
 function playerHit() {
@@ -94,29 +96,51 @@ function playerHit() {
 
  playerScoreCount += playerNewCard.value;
  playerScoreMsg.innerHTML = playerScoreCount;
+ getWinner();
 }
 
-function playerStay() {
+function dealerFlip() {
   dealerFirstDiv.setAttribute('class', `card ${dealerFirstCard.face}`);
 
   dealerScoreCount += dealerFirstCard.value;
   dealerScoreMsg.innerHTML = dealerScoreCount;
 
-  if (dealerScoreCount === 21) {
-    window.alert('Dealer Wins')
-  } else if (dealerScoreCount > playerScoreCount && dealerScoreCount <= 21) {
-    window.alert('Dealer Wins')
-  } else {
-    setTimeout(dealerHit, 3000);
-  }
+  getWinner();
+  dealerHit();
 }
 
 function dealerHit() {
- const dealerNewDiv = document.getElementById('dealer-cards').appendChild(document.createElement("div"));
- const dealerNewCard = shuffledDeck.pop();
- dealerNewDiv.setAttribute('class', `card ${dealerNewCard.face}`);
-
- dealerScoreCount += dealerNewCard.value;
- dealerScoreMsg.innerHTML = dealerScoreCount;
-
+  while (dealerScoreCount < playerScoreCount && dealerScoreCount < 21) {
+    const dealerNewDiv = document.getElementById('dealer-cards').appendChild(document.createElement("div"));
+    const dealerNewCard = shuffledDeck.pop();
+    dealerNewDiv.setAttribute('class', `card ${dealerNewCard.face}`);
+ 
+    dealerScoreCount += dealerNewCard.value;
+    dealerScoreMsg.innerHTML = dealerScoreCount;
+    getWinner();
+  }
 }
+
+function getWinner() {
+  if (playerScoreCount === 21) {
+    playerScoreMsg.innerHTML = playerScoreCount;
+    window.alert('You win');
+    return;
+  } else if (playerScoreCount > 21) {
+    playerScoreMsg.innerHTML = playerScoreCount;
+    window.alert('Dealer Wins');
+    return;
+  }
+  else if (dealerScoreCount === 21) {
+    playerScoreMsg.innerHTML = playerScoreCount;
+    window.alert('Dealer Wins');
+    return;
+  } else if (dealerScoreCount > playerScoreCount && dealerScoreCount <= 21) {
+    window.alert('Dealer Wins');
+    return;
+  } else if (dealerScoreCount > 21) {
+    window.alert('You Win');
+  } else {
+    return false;
+  }
+}g
