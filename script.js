@@ -2,6 +2,13 @@
 const suits = ['s', 'c', 'd', 'h'];
 const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
 
+const playerScoreMsg = document.getElementById('player-score');
+const dealerScoreMsg = document.getElementById('dealer-score');
+const playerContEl = document.getElementById('player-container');
+const dealerContEl = document.getElementById('dealer-container');
+const hitEl = document.getElementById('hit');
+const stayEl = document.getElementById('stay');
+
 // Build an 'original' deck of 'card' objects used to create shuffled decks
 const originalDeck = buildOriginalDeck();
 
@@ -12,11 +19,6 @@ let dealerScoreCount;
 let playerAceCount = 0;
 let dealerAceCount = 0;
 let whoWon;
-const playerScoreMsg = document.getElementById('player-score');
-const dealerScoreMsg = document.getElementById('dealer-score');
-const playerContEl = document.getElementById('player-container');
-const dealerContEl = document.getElementById('dealer-container');
-
 
 /*----- cached element references -----*/
 
@@ -27,6 +29,23 @@ document.getElementById('stay').addEventListener('click', dealerFlip);
 
 
 /*----- functions -----*/
+function buildOriginalDeck() {
+  const deck = [];
+  // Use nested forEach to generate card objects
+  suits.forEach(function(suit) {
+    ranks.forEach(function(rank) {
+      deck.push({
+        // The 'face' property maps to the library's CSS classes for cards
+        face: `${suit}${rank}`,
+        // Setting the 'value' property for game of blackjack, not war
+        value: Number(rank) || (rank === 'A' ? 11 : 10)
+      });
+    });
+  });
+  return deck;
+};
+
+renderNewShuffledDeck();
 function getNewShuffledDeck() {
   // Create a copy of the originalDeck (leave originalDeck untouched!)
   const tempDeck = [...originalDeck];
@@ -44,25 +63,6 @@ function renderNewShuffledDeck() {
   // Create a copy of the originalDeck (leave originalDeck untouched!)
   shuffledDeck = getNewShuffledDeck();
 }
-
-
-function buildOriginalDeck() {
-  const deck = [];
-  // Use nested forEach to generate card objects
-  suits.forEach(function(suit) {
-    ranks.forEach(function(rank) {
-      deck.push({
-        // The 'face' property maps to the library's CSS classes for cards
-        face: `${suit}${rank}`,
-        // Setting the 'value' property for game of blackjack, not war
-        value: Number(rank) || (rank === 'A' ? 11 : 10)
-      });
-    });
-  });
-  return deck;
-}
-
-renderNewShuffledDeck();
 
 const dealerFirstDiv = dealerContEl.appendChild(document.createElement("div"));
 const dealerFirstCard = shuffledDeck.pop();
@@ -109,7 +109,6 @@ function dealPlayerCards() {
 
 dealPlayerCards();
 
-
 function playerHit() {
  const playerNewDiv = playerContEl.appendChild(document.createElement("div"));
  const playerNewCard = shuffledDeck.pop();
@@ -144,7 +143,7 @@ function dealerFlip() {
 
   getWinner();
   dealerHit();
-}
+};
 
 function dealerHit() {
   while (dealerScoreCount < playerScoreCount && dealerScoreCount < 21) {
@@ -163,8 +162,8 @@ function dealerHit() {
     dealerScoreMsg.innerHTML = dealerScoreCount;
 
     getWinner();
-  }
-}
+  };
+};
 
 function getWinner() {
   if (playerScoreCount > 21) {
@@ -183,27 +182,30 @@ function getWinner() {
 
 function printResult() {
   if (whoWon === -1) {
-    const dealerWinsMsg = document.querySelector('body').appendChild(document.createElement("p"));
+    const dealerWinsMsg = document.querySelector('body').appendChild(document.createElement("h2"));
     dealerWinsMsg.innerText = 'Dealer wins!';
     playAgain();
   } else if (whoWon === 1) {
-    const playerWinsMsg = document.querySelector('body').appendChild(document.createElement("p"));
+    const playerWinsMsg = document.querySelector('body').appendChild(document.createElement("h2"));
     playerWinsMsg.innerText = 'You win!';
     playAgain();
   } else if (whoWon === 0) {
-    const pushMsg = document.querySelector('body').appendChild(document.createElement("p"));
+    const pushMsg = document.querySelector('body').appendChild(document.createElement("h2"));
     pushMsg.innerText = "It's a push (tie)!";
     playAgain();
-  }
-}
+  };
+};
 
 function playAgain () {
+  hitEl.remove();
+  stayEl.remove();
+  
   const playAgainBttn = document.createElement("button")
   document.querySelector('body').appendChild(playAgainBttn)
-  playAgainBttn.innerText = 'Play again?';
+  playAgainBttn.innerText = 'PLAY AGAIN';
   playAgainBttn.addEventListener('click', pageReload);
-}
+};
 
 function pageReload() {
   window.location.reload()
-}
+};
