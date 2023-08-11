@@ -6,9 +6,8 @@ body {
   height: 100vh;
   font-family: sans-serif;
   text-align: center;
+  background-color: rgb(0, 103, 20)
 }
-
-
 
 button {
   display: block;
@@ -21,7 +20,26 @@ button {
   outline: none;
 }
 
+#hit, #stay {
+  display: inline-block
+}
+
+
 button:hover {
   background-color: grey;
   color: white;
 }
+
+p {
+  font-size: 30 px;
+  color: black;
+}
+
+#dealer-container, #player-container {
+  margin: 25px 25px 25px 25px;
+}
+
+#button-container {
+  margin: 30px;
+}
+
