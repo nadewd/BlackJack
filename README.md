@@ -15,15 +15,15 @@ Blackjack is a popular casino card game played all over the world. In Blackjack,
 
 Once you land on the webpage the script already deals the player's first two cards and the dealer's first two (with one of them faced down). To hit you simply click the "HIT" button, and to stay you click the "STAY" button. Once you stay, the dealer automatically hits or stays using the logic of dealer rules. An important thing to note is to still click "STAY" after reaching 21 so that the dealer's actions can be triggered (they could possibly draw 21 as well).
 
-## Game Screenshots
+## Screenshots
 
-I used Figma to design a simple [wireframe](https://imgur.com/a/YiutvaW) for the Blackjack table.
+I used Figma to design a simple [wireframe]([https://imgur.com/a/YiutvaW](https://imgur.com/a/2kDqeY2)) for the Blackjack table.
 
-[Here](https://imgur.com/NYDQR0J) is the final design of the game. 
+[Here](https://imgur.com/a/LfN10zS) is the final design of the game. 
 
 ## Future Plans 
-- Add a welcome menu that asks user to start game
-- Use script logic to return to first game state once "PLAY AGAIN" button is clicked rather than reloading the page
+- Add a welcome menu that prompts user to start game
+- Change script logic to return to first game state once "PLAY AGAIN" button is clicked rather than reloading the page
 - Incorporate more Blackjack rules like betting, insurance, splitting aces, and naturals
 - Refine CSS styling of the page
 
