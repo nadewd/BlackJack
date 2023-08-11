@@ -17,7 +17,7 @@ Once you land on the webpage the script already deals the player's first two car
 
 ## Screenshots
 
-I used Figma to design a simple [wireframe]([https://imgur.com/a/YiutvaW](https://imgur.com/a/2kDqeY2)) for the Blackjack table.
+I used Figma to design a simple [wireframe]([https://imgur.com/a/YiutvaW](https://imgur.com/a/2kDqeY2) for the Blackjack table.
 
 [Here](https://imgur.com/a/LfN10zS) is the final design of the game. 
 
