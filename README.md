@@ -19,9 +19,9 @@ Once you land on the webpage the script already deals the player's first two car
 
 The game can be accessed [here](https://nadewd.github.io/project1_blackjack/)
 
-I used Figma to design a simple [wireframe](https://imgur.com/a/2kDqeY2) for the Blackjack table
+I used Figma to design a simple ![wireframe](https://imgur.com/a/2kDqeY2) for the Blackjack table
 
-[Here](https://imgur.com/a/r0A4bNh) is the final design of the game (also shows double ace rule)
+![Here](https://imgur.com/a/r0A4bNh) is the final design of the game (also shows double ace rule)
 
 ## Future Plans 
 - Add a welcome menu that prompts user to start game
