@@ -90,7 +90,6 @@ function playerCards() {
   const playerSecondDiv = playerContEl.appendChild(document.createElement("div"));
   const playerSecondCard = shuffledDeck.pop();
   playerSecondDiv.setAttribute('class', `card ${playerSecondCard.face}`);
-  // If both cards are aces then set the second card's value to 1 and update playerAceCount by +1
   if (playerFirstCard.value === 11) {
     playerAceCount += 1;
   }; 
