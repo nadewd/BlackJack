@@ -1,4 +1,3 @@
-# project1_blackjack
 # Blackjack 
 
 Blackjack is a popular casino card game played all over the world. In Blackjack, each participant attempts to beat the dealer by getting a score as close to 21 as possible, without going over 21. When the dealer has served every player, the dealers face-down card is turned up. If the total is 17 or more, it must stand. If the total is 16 or under, they must take a card. The dealer must continue to take cards until the total is 17 or more, at which point the dealer must stand. If a player or the dealer has an ace, and then after hitting receives another ace that would put their score over 21, then that ace that was received, as well as any other future aces received via hits, are now worth 1 rather than 11. 
